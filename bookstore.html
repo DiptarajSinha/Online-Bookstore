@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Bookstore</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-purple-800 flex justify-center items-center min-h-screen px-4">
+
+    <div id="homePage" class="bg-purple-900 text-white rounded-lg w-full max-w-md p-6 shadow-lg">
+        <!-- Header -->
+        <div class="flex justify-between items-center mb-6">
+            <div class="text-lg font-semibold">📚 Bookworm </div>
+            <button onclick="showPage('loginPage')" class="bg-yellow-400 text-purple-900 px-4 py-2 rounded-full text-sm font-semibold hover:bg-yellow-300 transition">Login</button>
+        </div>
+
+        <!-- Main Title -->
+        <h1 class="text-4xl md:text-5xl font-extrabold text-yellow-400 mb-4 text-center">BOOK STORE</h1>
+
+        <!-- Image -->
+        <div class="relative mb-6">
+            <img src="bookstore.jpg" alt="Bookshelf image" class="w-full rounded-lg">
+        </div>
+
+        <!-- Description -->
+        <p class="text-lg text-gray-300 mb-6 text-center">
+            Explore a wide selection of books across various genres.
+        </p>
+
+        <!-- Navigation Buttons -->
+        <div class="flex justify-between items-center">
+            <a href="#" onclick="showPage('cataloguePage')" class="text-yellow-400 text-lg font-semibold">📖 View Catalogue</a>
+            <a href="#" onclick="showPage('registerPage')" class="bg-yellow-400 text-purple-900 px-6 py-2 rounded-full text-lg font-semibold hover:bg-yellow-300 transition">Register</a>
+        </div>
+    </div>
+
+    <!-- Login Page -->
+    <div id="loginPage" class="hidden bg-purple-900 text-white rounded-lg w-full max-w-md p-6 shadow-lg">
+        <h2 class="text-3xl font-extrabold text-yellow-400 mb-4 text-center">Login</h2>
+        <form onsubmit="return validateLogin(event)">
+            <input type="text" id="username" placeholder="Username" class="w-full p-2 rounded mb-3 bg-gray-800 text-white">
+            <input type="password" id="password" placeholder="Password" class="w-full p-2 rounded mb-3 bg-gray-800 text-white">
+            <p id="loginError" class="text-red-500 text-sm"></p>
+            <button type="submit" class="w-full bg-yellow-400 text-purple-900 px-4 py-2 rounded font-semibold hover:bg-yellow-300 transition">Login</button>
+        </form>
+        <button onclick="showPage('homePage')" class="mt-4 w-full text-yellow-400">Back to Home</button>
+    </div>
+
+    <!-- Catalogue Page -->
+    <div id="cataloguePage" class="hidden bg-purple-900 text-white rounded-lg w-full max-w-md p-6 shadow-lg">
+        <h2 class="text-3xl font-extrabold text-yellow-400 mb-4 text-center">Catalogue</h2>
+        <table class="w-full text-center border-collapse">
+            <tr class="bg-yellow-400 text-purple-900">
+                <th class="p-2">Cover</th>
+                <th class="p-2">Title</th>
+                <th class="p-2">Author</th>
+                <th class="p-2">Price</th>
+            </tr>
+            <tr class="bg-gray-800">
+                <td><img src="theblueumbrella.jpg" class="rounded"></td>
+                <td>THE BLUE UMBRELLA</td>
+                <td>Ruskin Bond</td>
+                <td>₹ 123</td>
+            </tr>
+            <tr class="bg-gray-700">
+                <td><img src="wingsoffire.jpg" class="rounded"></td>
+                <td>Wings of Fire An Autobiography</td>
+                <td>Arun Tiwari and A. P. J. Abdul Kalam</td>
+                <td>₹ 327</td>
+            </tr>
+            <tr class="bg-gray-800">
+                <td><img src="thegodofsmallthings.jpg" class="rounded"></td>
+                <td>The God of Small Things</td>
+                <td>Arundhati Roy</td>
+                <td>₹ 292</td>
+            </tr>
+        </table>
+        <button onclick="showPage('homePage')" class="mt-4 w-full text-yellow-400">Back to Home</button>
+    </div>
+
+    <!-- Registration Page -->
+    <div id="registerPage" class="hidden bg-purple-900 text-white rounded-lg w-full max-w-md p-6 shadow-lg">
+        <h2 class="text-3xl font-extrabold text-yellow-400 mb-4 text-center">Register</h2>
+        <form onsubmit="return registerUser(event)">
+            <input type="text" id="regName" placeholder="Full Name" class="w-full p-2 rounded mb-3 bg-gray-800 text-white">
+            <input type="email" id="regEmail" placeholder="Email" class="w-full p-2 rounded mb-3 bg-gray-800 text-white">
+            <input type="password" id="regPassword" placeholder="Password" class="w-full p-2 rounded mb-3 bg-gray-800 text-white">
+            <p id="registerError" class="text-red-500 text-sm"></p>
+            <button type="submit" class="w-full bg-yellow-400 text-purple-900 px-4 py-2 rounded font-semibold hover:bg-yellow-300 transition">Register</button>
+        </form>
+        <button onclick="showPage('homePage')" class="mt-4 w-full text-yellow-400">Back to Home</button>
+    </div>
+
+    <script>
+        function showPage(pageId) {
+            let pages = ["homePage", "loginPage", "cataloguePage", "registerPage"];
+            pages.forEach(page => document.getElementById(page).classList.add("hidden"));
+            document.getElementById(pageId).classList.remove("hidden");
+        }
+
+        function validateLogin(event) {
+            event.preventDefault();
+            let username = document.getElementById("username").value;
+            let password = document.getElementById("password").value;
+            let error = document.getElementById("loginError");
+            if (username === "" || password === "") {
+                error.innerText = "All fields are required!";
+                return false;
+            }
+            alert("Login Successful!");
+            showPage('homePage');
+        }
+
+        function registerUser(event) {
+            event.preventDefault();
+            let name = document.getElementById("regName").value;
+            let email = document.getElementById("regEmail").value;
+            let pass = document.getElementById("regPassword").value;
+            let error = document.getElementById("registerError");
+            if (name === "" || email === "" || pass === "") {
+                error.innerText = "All fields are required!";
+                return false;
+            }
+            alert("Registration Successful!");
+            showPage('homePage');
+        }
+    </script>
+
+</body>
+</html>
